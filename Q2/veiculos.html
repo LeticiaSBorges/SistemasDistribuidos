@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exemplo de Front-end com API</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>API de Dados de Vendas</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome do Cliente</th>
+        <th>Marca e Modelo do Veículo</th>
+        <th>Ano do Modelo</th>
+        <th>Valor de Venda</th>
+        <th>Cadastro</th>
+      </tr>
+    </thead>
+    <tbody id="data"></tbody>
+  </table>
+
+  <script>
+    // Fazer a requisição fetch para obter os dados da API
+    fetch('http://localhost:8080/veiculos')
+      .then(response => response.json())
+      .then(data => {
+        // Preencher a tabela com os dados recebidos da API
+        const tableBody = document.getElementById('data');
+
+        data.forEach(item => {
+          const row = document.createElement('tr');
+
+          const idCell = document.createElement('td');
+          idCell.textContent = item.id;
+          row.appendChild(idCell);
+
+          const nomeClienteCell = document.createElement('td');
+          nomeClienteCell.textContent = item.nomeCliente;
+          row.appendChild(nomeClienteCell);
+
+          const marcaModeloVeiculoCell = document.createElement('td');
+          marcaModeloVeiculoCell.textContent = item.marcaModeloVeiculo;
+          row.appendChild(marcaModeloVeiculoCell);
+
+          const anoModeloCell = document.createElement('td');
+          anoModeloCell.textContent = item.anoModelo;
+          row.appendChild(anoModeloCell);
+
+          const valorVendaCell = document.createElement('td');
+          valorVendaCell.textContent = item.valorVenda;
+          row.appendChild(valorVendaCell);
+
+          const cadastroCell = document.createElement('td');
+          cadastroCell.textContent = item.cadastro;
+          row.appendChild(cadastroCell);
+
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.log('Erro na requisição:', error);
+      });
+  </script>
+</body>
+</html>
+
+
+
+
+
